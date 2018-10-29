@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      QuickList
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-button shape="round" color="primary" fill="outline" (click)="byAsc()">Sort by remaining items (Ascending)</ion-button>
+  <br>
+  <ion-button shape="round" color="primary" fill="outline" (click)="byDsc()">Sort by remaining items (Descending)</ion-button>
+
+
+  <ion-list lines="none" *ngFor="let checklist of dataService.checklists">
+
+<ion-item>
+  <ion-item [href]="'/checklists/' + checklist.id" routerDirection="forward">
+
+    <!-- [href]="'/checklists/' + checklist.id"  -->
+    <ion-label>{{checklist.title}}</ion-label>
+    </ion-item>
+    <span> Total: {{checklist.items.length}}  </span>
+    <p>&nbsp;</p>
+    <span> Remain: {{remainCount(checklist)}}  </span>
+    <!-- Remain: {{remainCount(checklist)}} items  -->
+   <ion-buttons>
+    <ion-icon slot="icon-only" (click)="removeChecklist(checklist)" name="trash"></ion-icon>
+      <ion-icon slot="icon-only" (click)="renameChecklist(checklist)" name="clipboard"></ion-icon>
+    <!-- <span><ion-tab color="danger" (click)="removeChecklist(checklist)" icon="trash"></ion-tab></span> -->
+  </ion-buttons>
+
+  </ion-item>
+
+</ion-list>
+
+  <ion-input [(ngModel)]="list" placeholder='New List'></ion-input>
+  <ion-button (click)="addChecklist()" shape="round" color="primary" fill="outline" >Add New List</ion-button>
+
+
+</ion-content>

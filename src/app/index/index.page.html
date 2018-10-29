@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      QuickList
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item><p> You must be new here. Create a list and get to work.</p>
+  </ion-item>
+
+    <ion-item>
+      <ion-input [(ngModel)]="list" placeholder='New List'></ion-input>
+  </ion-item>
+
+  <ion-button (click)="addChecklist()" shape="round" color="primary" fill="outline" href="/home" >Add New List</ion-button>
+
+
+</ion-content>

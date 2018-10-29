@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-title>{{ checklist?.title }}</ion-title>
+    <ion-buttons slot="start">
+    <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div *ngIf=" checklist?.items.length==0 ;else allitem">
+      There is nothing in this list! Add something here!
+    </div>
+
+
+
+<!-- <ion-list>
+  <ion-item>
+  <ion-label>ITEM TITLE</ion-label>
+  </ion-item>
+
+</ion-list> -->
+<ng-template #allitem>
+  <ion-item>
+    Total: {{checklist?.items.length}}&nbsp;
+    Remain:{{remainCount()}}
+    </ion-item>
+
+<ion-list lines="none">
+  <ion-item>
+    <ion-label>Hide completed</ion-label>
+    <ion-toggle [(ngModel)]="showhide" ></ion-toggle>
+</ion-item>
+  <ion-item>
+    <ion-button shape="round" color="primary" fill="outline" (click)="byPriority()">Sort by priority</ion-button>
+    <ion-button shape="round" color="primary" fill="outline" (click)="byAlpha()">Sort by alphabetical order</ion-button>
+  </ion-item>
+  <!-- <div *ngIf="sort by ap"> : -->
+<!-- <div id="hide" *ngIf="!showhide"> -->
+<ion-item *ngFor="let item of checklist?.items">
+
+<div *ngIf="showhide==true;else fullist">
+  <ion-item *ngIf="item.checked === false">
+      <ion-select [(ngModel)]="item.rank" placeholder="rank" [value]=0 (ionChange)="setRank(item,item.rank)">
+          <ion-select-option [value]="1">High</ion-select-option>
+          <ion-select-option [value]="2">Medium</ion-select-option>
+          <ion-select-option [value]="3">Low</ion-select-option>
+        </ion-select>
+
+    <ion-checkbox [checked]="item.checked" (ionChange)="checkItem(item)"></ion-checkbox>
+    <ion-label>{{ item.title }}</ion-label>
+    <ion-buttons>
+          <ion-icon (click)="renameItem(item)" slot="icon-only" name="clipboard"></ion-icon>
+          <ion-icon (click)="removeItem(item)" slot="icon-only" name="trash"></ion-icon>
+    </ion-buttons>
+    </ion-item>
+</div>
+
+<div>
+<ng-template #fullist>
+
+   <!-- <ion-select [value]="rank" placeholder="rank" value=0 (ionChange)="setRank(item,rank)">
+       <ion-select-option value="1" >High</ion-select-option>
+       <ion-select-option value="2" >Medium</ion-select-option>
+       <ion-select-option value="3" >Low</ion-select-option>
+ </ion-select> -->
+ <ion-select [(ngModel)]="item.rank" placeholder="rank" [value]=0 (ionChange)="setRank(item,item.rank)">
+     <ion-select-option [value]="1">High</ion-select-option>
+     <ion-select-option [value]="2">Medium</ion-select-option>
+     <ion-select-option [value]="3">Low</ion-select-option>
+   </ion-select>
+
+<ion-item>
+ <ion-item>
+  <ion-checkbox [checked]="item.checked" (ionChange)="checkItem(item)"></ion-checkbox>
+  <ion-label>{{ item.title }}</ion-label>
+  </ion-item>
+  <ion-buttons>
+
+        <ion-icon (click)="renameItem(item)" slot="icon-only" name="clipboard"></ion-icon>
+        <ion-icon (click)="removeItem(item)" slot="icon-only" name="trash"></ion-icon>
+
+  </ion-buttons>
+  </ion-item>
+  <br/>
+
+
+
+</ng-template>
+</div>
+
+
+</ion-item>
+<!-- </div> -->
+</ion-list>
+</ng-template>
+
+<ion-item>
+    <ion-label>Add New</ion-label>
+
+    <ion-icon name="add"></ion-icon>
+    <ion-input [(ngModel)]="item" style="border: 1px; border-radius: 5px;"></ion-input>
+    <ion-icon (click)="addItem()" name="save" >Add New</ion-icon>
+
+</ion-item>
+
+</ion-content>

@@ -4,8 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
-  { path: 'quicklist', loadChildren: './quicklist/quicklist.module#QuicklistPageModule' },
-  // { path: 'checklists/:id', loadChildren:'./checklists/checklists.module#ChecklistPageModule' },
   { path: 'checklists/:id', loadChildren: './checklists/checklists.module#ChecklistsPageModule' },
   { path: 'index', loadChildren: './index/index.module#IndexPageModule' }
   ];
